@@ -4,6 +4,7 @@ var router = express.Router();
 var tweetBank = require('../tweetBank');
 
 var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
@@ -17,7 +18,6 @@ router.get('/', function (req, res) {
 router.get('/users/:name/:id', function(req, res) {
 	var id = req.params.id;
 	var name = req.params.name
-	console.log(id);
 	var unique = tweetBank.find( {id: id} );
 	res.render( 'index', {title: 'Posted by'+name, tweets: unique} );
 });
@@ -25,16 +25,21 @@ router.get('/users/:name/:id', function(req, res) {
 router.get('/users/:name', function(req, res) {
   var name = req.params.name;
   var list = tweetBank.find( {name: name} );
+  console.log(name);
+  
   res.render( 'index', { title: 'Twitter.js - Posts by '+name, tweets: list, showForm: true, namePage: true} );
 });
 
 router.post('/submit', urlencodedParser, function(req, res) {
-  if (!req.body) return res.sendStatus(400)
-  console.log(req.body);
   var name = req.body.name;
   var text = req.body.text;
-  tweetBank.add(name, text);
+  
+  io.sockets.emit('new_tweet', tweetBank.add(name, text));
+
+  //tweetBank.add(name, text);
   res.redirect('/');
 });
 
-module.exports = router;
+module.exports = function(io){
+	return router;
+};
