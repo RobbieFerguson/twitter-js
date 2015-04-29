@@ -4,7 +4,6 @@ var router = express.Router();
 var tweetBank = require('../tweetBank');
 
 var bodyParser = require('body-parser');
-var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
@@ -29,7 +28,9 @@ router.get('/users/:name', function(req, res) {
   res.render( 'index', { title: 'Twitter.js - Posts by '+name, tweets: list, showForm: true, namePage: true} );
 });
 
-router.post('/submit', function(req, res) {
+router.post('/submit', urlencodedParser, function(req, res) {
+  if (!req.body) return res.sendStatus(400)
+  console.log(req.body);
   var name = req.body.name;
   var text = req.body.text;
   tweetBank.add(name, text);

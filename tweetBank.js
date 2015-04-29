@@ -3,9 +3,8 @@ var data = [];
 var counter = 0;
 
 var add = function (name, text) {
-	data.push({name: name, text: text, id: counter.toString()});
+	data.unshift({name: name, text: text, id: counter.toString()});
 	counter++;
-	console.log(data);
 };
 
 var list = function () {

@@ -13,7 +13,7 @@
     	{% if namePage %}
 	  		{% for tweet in tweets %}
 	  			{% if loop.first %}
-	    			<input name="name" type="text" id="name_field" value={{tweet.name}}/>
+	    			<input name="name" type="text" id="name_field" value={{tweet.name.replace(' ', '&#32')}} />
 	    		{% endif %}
       		{% endfor %} 
 	    {% else %}
