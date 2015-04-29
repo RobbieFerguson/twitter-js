@@ -10,5 +10,9 @@ app.listen(3000, function() {
 })
 
 app.get('/', function(req, res) {
-	res.send('Hello!')
+	res.send('Hello!');
+})
+
+app.get('/newse', function(req, res) {
+	res.send('Bill Gates has adopted a puppy');
 })
