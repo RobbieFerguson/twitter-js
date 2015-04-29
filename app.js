@@ -2,6 +2,7 @@ var express = require('express');
 var morgan = require('morgan');
 var swig = require('swig');
 var path = require('path');
+var routes = require('./routes');
 swig.setDefaults({cache: false});
 
 var app = express();
@@ -20,11 +21,4 @@ app.listen(3000, function() {
 	console.log('server listening');
 })
 
-app.get('/', function(req, res) {
-	res.render( 'index', {title: 'Hall of Fame', people: people} );
-})
-
-app.get('/newse', function(req, res) {
-	res.send('Bill Gates has adopted a puppy');
-})
-
+app.use('/', routes);
