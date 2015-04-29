@@ -48,6 +48,15 @@
         <br>
       {% endfor %} 
     </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+    	var socket = io('http://localhost');
+    	socket.on( 'new_tweet', function (tweet) {
+    		console.log(tweet);
+    		
+    	})
+    </script>
   </div>
     
 {% endblock %}
