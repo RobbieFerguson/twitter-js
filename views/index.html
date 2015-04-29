@@ -5,6 +5,31 @@
   <div class="page-header">
     <h1>Welcome to Twitter.js, Nimit!</h1>
   </div>
+
+  <div class="form-submit">
+	  	{% if showForm %}
+	  <form action="/submit" method="POST">
+	    <label for="name_field">Name:</label>
+    	{% if namePage %}
+	  		{% for tweet in tweets %}
+	  			{% if loop.first %}
+	    			<input name="name" type="text" id="name_field" value={{tweet.name}}/>
+	    		{% endif %}
+      		{% endfor %} 
+	    {% else %}
+  	    	<input name="name" type="text" id="name_field"/>
+  	    {% endif %}
+
+
+
+	    <label for="text_field">Text:</label>
+	    <input name="text" type="text" id="text_field" style="width: 350px;" />
+
+	    <input type="submit" value="Submit" />
+	  </form>
+	{% endif %}
+  </div>
+
   <div class="row">
     <div class="col-md-3">
       <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg"><br>
@@ -21,8 +46,7 @@
         <p class='tweet-link'><a href='/users/{{tweet.name}}/{{tweet.id}}'>Link to this tweet</a></p>
        
         <br>
-      {% endfor %}
-      
+      {% endfor %} 
     </div>
   </div>
     
