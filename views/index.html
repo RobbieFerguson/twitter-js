@@ -15,7 +15,12 @@
     
       <!-- display tweets here -->
       {% for tweet in tweets %}
-        <li>{{tweet.text}}</li>
+        <img src="https://pbs.twimg.com/profile_images/2450268678/olxp11gnt09no2y2wpsh_normal.jpeg" class='tweeter-photo'>
+        <p class='tweeter-name tweeter-photo'><a href='/users/{{tweet.name}}'>{{tweet.name}}</a></p>
+        <p class='tweet tweeter-photo'>{{tweet.text}}</p>
+        <p class='tweet-link'><a href='/users/{{tweet.name}}/{{tweet.id}}'>Link to this tweet</a></p>
+       
+        <br>
       {% endfor %}
       
     </div>
