@@ -12,13 +12,12 @@ app.set('view engine', 'html');
 app.set('views', path.join(__dirname, 'views'));
 
 
-
-
-
 var people = [{name: 'Full'}, {name: 'Stacker'}, {name: 'Son'}];
 
 app.listen(3000, function() {
 	console.log('server listening');
 })
+
+app.use(express.static(__dirname + '/public'));
 
 app.use('/', routes);
