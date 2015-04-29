@@ -8,7 +8,8 @@ var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 
-module.exports = function(io){
+
+
 	router.get('/', function (req, res) {
 	  var tweets = tweetBank.list();
 	  res.render( 'index', { title: 'Twitter.js', tweets: tweets, showForm: true} );
@@ -29,16 +30,15 @@ module.exports = function(io){
 	  res.render( 'index', { title: 'Twitter.js - Posts by '+name, tweets: list, showForm: true, namePage: true} );
 	});
 
+
+
+module.exports = function(io){
 	router.post('/submit', urlencodedParser, function(req, res) {
 	  var name = req.body.name;
 	  var text = req.body.text;
-	  
-	  console.log(tweetBank.list());
-	  io.sockets.emit('new_tweet', tweetBank[tweetBank.length-1]);
-
-	  //tweetBank.add(name, text);
-	  //res.redirect('/');
+	  tweetBank.add(name, text);
+	  var tweetArr = tweetBank.list();
+	  io.sockets.emit('new_tweet', tweetArr[0]);
 	});
-
 	return router;
 };
