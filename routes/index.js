@@ -36,9 +36,9 @@ module.exports = function(io){
 	router.post('/submit', urlencodedParser, function(req, res) {
 	  var name = req.body.name;
 	  var text = req.body.text;
+	  tweetObj = {name: name, text: text}
 	  tweetBank.add(name, text);
-	  var tweetArr = tweetBank.list();
-	  io.sockets.emit('new_tweet', tweetArr[0]);
+	  io.sockets.emit('new_tweet', tweetObj);
 	});
 	return router;
 };
